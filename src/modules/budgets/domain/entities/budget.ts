@@ -1,3 +1,4 @@
+import { StringGuard } from '../../../../shared/core/guards/StringGuard';
 import Accounts from '../valueTypes/accounts';
 
 export interface BudgetProps {
@@ -8,8 +9,14 @@ export interface BudgetProps {
 export default class Budget {
 	private readonly props: BudgetProps;
 
-	constructor(props: BudgetProps) {
+	private constructor(props: BudgetProps) {
 		this.props = props;
+	}
+
+	static init(props: BudgetProps): Budget {
+		StringGuard.IsNotEmpty(props.name);
+
+		return new Budget(props);
 	}
 
 	get name(): string {
