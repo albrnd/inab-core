@@ -8,7 +8,6 @@ describe('Account', () => {
 
 		const account = Account.init(_props);
 
-
 		return {
 			account,
 			props: _props,
@@ -18,10 +17,9 @@ describe('Account', () => {
 	describe('init', () => {
 		it('should accept account props', () => {
 			const { account } = createAccount();
-	
+
 			expect(account).toBeDefined();
 		});
-
 
 		it('should not accept an empty name', () => {
 			const accountName = '';
@@ -33,9 +31,9 @@ describe('Account', () => {
 	describe('name', () => {
 		it('should return the correct name', () => {
 			const accountName = 'My Second Account';
-			
+
 			const { account } = createAccount({ name: accountName });
-			
+
 			expect(account.name).toEqual(accountName);
 		});
 	});
@@ -43,9 +41,9 @@ describe('Account', () => {
 	describe('balance', () => {
 		it('should return the correct balance', () => {
 			const balance = 150000;
-			
+
 			const { account } = createAccount({ balance });
-			
+
 			expect(account.balance).toEqual(balance);
 		});
 	});
