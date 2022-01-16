@@ -1,19 +1,22 @@
-import { UseCase } from '../../../../shared/core/UseCase';
+import { UseCase } from '../../../../shared/domain';
 import Budget from '../../domain/entities/budget';
 import Accounts from '../../domain/valueTypes/accounts';
 
 interface ICreateBudgetDTO {
-  name: string;
+	name: string;
 }
 
 export class CreateBudget implements UseCase<ICreateBudgetDTO, Budget> {
-  async execute(request?: ICreateBudgetDTO): Promise<Budget> {
-    try {
-      const newBudget = Budget.init({ name: request.name, accounts: new Accounts([]) });
-      
-      return newBudget;
-    } catch (err) {
-      throw new Error(`Invalid budget: ${err}`,);
-    }
-  }
+	async execute(request?: ICreateBudgetDTO): Promise<Budget> {
+		try {
+			const newBudget = Budget.init({
+				name: request.name,
+				accounts: new Accounts([]),
+			});
+
+			return newBudget;
+		} catch (err) {
+			throw new Error(`Invalid budget: ${err}`);
+		}
+	}
 }
