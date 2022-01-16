@@ -8,7 +8,7 @@ describe('Budget', () => {
 
 		const _props = { ...defaultProps, ...props };
 
-		const budget = new Budget(_props);
+		const budget = Budget.init(_props);
 
 		return {
 			budget,
@@ -16,10 +16,18 @@ describe('Budget', () => {
 		};
 	};
 
-	it('should accept budget props', () => {
-		const { budget } = createBudget();
+	describe('init', () => {
+		it('should accept budget props', () => {
+			const { budget } = createBudget();
 
-		expect(budget).toBeDefined();
+			expect(budget).toBeDefined();
+		});
+
+		it('should not accept an empty name', () => {
+			const budgetName = '';
+
+			expect(() => createBudget({ name: budgetName })).toThrowError();
+		});
 	});
 
 	it('should return the correct name', () => {
@@ -31,7 +39,7 @@ describe('Budget', () => {
 	});
 
 	it('should return the correct accounts', () => {
-		const account = new Account({ name: 'My Account', balance: 20000 });
+		const account = Account.init({ name: 'My Account', balance: 20000 });
 
 		const { budget } = createBudget({ accounts: new Accounts([account]) });
 

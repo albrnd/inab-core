@@ -9,7 +9,7 @@ describe('Accounts', () => {
 	});
 
 	it('should set the initial value of accounts', () => {
-		const account = new Account({ name: 'Account', balance: 1000 });
+		const account = Account.init({ name: 'Account', balance: 1000 });
 
 		const accounts = new Accounts([account]);
 
