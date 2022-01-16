@@ -12,7 +12,7 @@ export default class Account extends Entity<AccountProps> {
 	}
 
 	static init(props: AccountProps): Account {
-		StringGuard.IsNotEmpty(props.name);
+		StringGuard.isNotEmpty(props.name);
 
 		return new Account(props);
 	}

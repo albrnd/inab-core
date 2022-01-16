@@ -1,4 +1,4 @@
-import Accounts from '../valueTypes/accounts';
+import Accounts from '../valueObjects/accounts';
 import Account from './account';
 import Budget, { BudgetProps } from './budget';
 

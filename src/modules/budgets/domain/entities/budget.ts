@@ -1,6 +1,6 @@
 import { StringGuard } from '../../../../shared/core/guards/StringGuard';
 import { Entity, Guid } from '../../../../shared/domain';
-import Accounts from '../valueTypes/accounts';
+import Accounts from '../valueObjects/accounts';
 
 export interface BudgetProps {
 	name: string;
@@ -13,7 +13,7 @@ export default class Budget extends Entity<BudgetProps> {
 	}
 
 	static init(props: BudgetProps, id?: Guid): Budget {
-		StringGuard.IsNotEmpty(props.name);
+		StringGuard.isNotEmpty(props.name);
 
 		return new Budget(props, id);
 	}
