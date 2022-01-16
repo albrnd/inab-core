@@ -1,0 +1,29 @@
+image: node:16-buster
+
+stages:
+  - ci
+  # - cd
+
+ci:
+  stage: ci
+  script:
+  - echo "Initializing..."
+  - yarn
+  - echo "Start testing..."
+  - yarn test:build
+  - echo "Building..."
+  - yarn build
+
+# deploy:
+#   stage: cd
+#   script:
+#     - apt-get update -qy
+#     - apt-get install -y ruby-dev
+#     - gem install dpl
+#     - dpl --provider=heroku --app=foodist-app --api-key=$HEROKU_API_KEY
+#   only:
+#     - dev
+
+# workflow:
+#   rules:
+#   - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
