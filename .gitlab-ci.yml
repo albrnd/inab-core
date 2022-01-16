@@ -11,8 +11,8 @@ ci:
   - yarn
   - echo "Start testing..."
   - yarn test:build
-  - echo "Building..."
-  - yarn build
+  # - echo "Building..."
+  # - yarn build
 
 # deploy:
 #   stage: cd
