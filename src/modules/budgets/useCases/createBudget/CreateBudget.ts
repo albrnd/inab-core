@@ -1,6 +1,6 @@
 import { UseCase } from '../../../../shared/domain';
 import Budget from '../../domain/entities/budget';
-import Accounts from '../../domain/valueTypes/accounts';
+import Accounts from '../../domain/valueObjects/accounts';
 
 interface ICreateBudgetDTO {
 	name: string;

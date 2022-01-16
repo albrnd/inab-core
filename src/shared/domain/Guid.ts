@@ -4,4 +4,8 @@ export class Guid {
 	constructor(private value?: string) {
 		this.value = value && validate(value) ? value : uuidv4();
 	}
+
+	static init() {
+		return new Guid();
+	}
 }
