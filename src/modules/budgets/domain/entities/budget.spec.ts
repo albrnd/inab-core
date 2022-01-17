@@ -1,4 +1,4 @@
-import Accounts from '../valueObjects/accounts';
+import Accounts from 'modules/budgets/domain/valueObjects/accounts';
 import Account from './account';
 import Budget, { BudgetProps } from './budget';
 

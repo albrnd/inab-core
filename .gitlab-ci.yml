@@ -9,6 +9,8 @@ ci:
   script:
   - echo "Initializing..."
   - yarn
+  - echo "Checking format"
+  - yarn code:check
   - echo "Start testing..."
   - yarn test:build
   # - echo "Building..."

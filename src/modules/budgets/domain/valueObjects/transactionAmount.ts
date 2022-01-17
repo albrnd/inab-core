@@ -1,4 +1,4 @@
-import { Guard } from '../../../../shared/core/guards/Guard';
+import { Guard } from 'shared/core/guards/Guard';
 
 interface TransactionAmountProps {
 	value: number;

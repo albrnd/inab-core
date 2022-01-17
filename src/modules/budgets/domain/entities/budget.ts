@@ -1,6 +1,6 @@
-import { StringGuard } from '../../../../shared/core/guards/StringGuard';
-import { Entity, Guid } from '../../../../shared/domain';
-import Accounts from '../valueObjects/accounts';
+import Accounts from 'modules/budgets/domain/valueObjects/accounts';
+import { StringGuard } from 'shared/core/guards/StringGuard';
+import { Entity, Guid } from 'shared/domain';
 
 export interface BudgetProps {
 	name: string;
