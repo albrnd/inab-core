@@ -1,5 +1,5 @@
-import { Guid } from '../../../../shared/domain';
-import TransactionAmount from '../valueObjects/transactionAmount';
+import TransactionAmount from 'modules/budgets/domain/valueObjects/transactionAmount';
+import { Guid } from 'shared/domain';
 import Transaction, { TransactionProps } from './transaction';
 
 describe('Transaction', () => {

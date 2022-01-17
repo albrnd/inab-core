@@ -1,6 +1,6 @@
-import { UseCase } from '../../../../shared/domain';
-import Budget from '../../domain/entities/budget';
-import Accounts from '../../domain/valueObjects/accounts';
+import Budget from 'modules/budgets/domain/entities/budget';
+import Accounts from 'modules/budgets/domain/valueObjects/accounts';
+import { UseCase } from 'shared/domain';
 
 interface ICreateBudgetDTO {
 	name: string;

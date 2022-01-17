@@ -1,5 +1,5 @@
-import { Entity, Guid } from '../../../../shared/domain';
-import TransactionAmount from '../valueObjects/transactionAmount';
+import TransactionAmount from 'modules/budgets/domain/valueObjects/transactionAmount';
+import { Entity, Guid } from 'shared/domain';
 
 export interface TransactionProps {
 	budgetId: Guid;

@@ -4,16 +4,21 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test:build": "jest",
-    "test": "jest --watch"
+    "test:build": "jest -c jest.config.js",
+    "test": "jest -c jest.config.js --watch",
+    "code:check": "prettier --check ./src",
+    "code:format": "prettier --write ./src"
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",
     "@babel/preset-env": "^7.16.7",
     "@babel/preset-typescript": "^7.16.7",
     "@types/jest": "^27.4.0",
+    "@types/uuid": "^8.3.4",
     "babel-jest": "^27.4.6",
-    "jest": "^27.4.7"
+    "jest": "^27.4.7",
+    "prettier": "2.5.1",
+    "typescript": "^4.5.4"
   },
   "dependencies": {
     "uuid": "^8.3.2"

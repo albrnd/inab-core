@@ -1,4 +1,4 @@
-import Account from '../entities/account';
+import Account from 'modules/budgets/domain/entities/account';
 import Accounts from './accounts';
 
 describe('Accounts', () => {

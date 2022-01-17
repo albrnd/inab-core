@@ -1,5 +1,5 @@
-import { StringGuard } from '../../../../shared/core/guards/StringGuard';
-import { Entity, Guid } from '../../../../shared/domain';
+import { StringGuard } from 'shared/core/guards/StringGuard';
+import { Entity, Guid } from 'shared/domain';
 
 export interface AccountProps {
 	name: string;
