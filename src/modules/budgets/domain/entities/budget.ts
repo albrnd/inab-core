@@ -1,5 +1,6 @@
 import Accounts from 'modules/budgets/domain/valueObjects/accounts';
 import { StringGuard } from 'shared/core/guards/StringGuard';
+import { Result } from 'shared/core/Result';
 import { Entity, Guid } from 'shared/domain';
 
 export interface BudgetProps {
@@ -12,10 +13,14 @@ export default class Budget extends Entity<BudgetProps> {
 		super(props, id);
 	}
 
-	static init(props: BudgetProps, id?: Guid): Budget {
-		StringGuard.isNotEmpty(props.name);
+	static init(props: BudgetProps, id?: Guid): Result<Budget> {
+		const error = StringGuard.isNotEmpty(props.name);
 
-		return new Budget(props, id);
+		if (error) {
+			return Result.fail(error);
+		}
+
+		return Result.ok(new Budget(props, id));
 	}
 
 	get name(): string {

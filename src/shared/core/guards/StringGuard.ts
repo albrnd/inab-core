@@ -1,8 +1,7 @@
-// FIXME: refactor with more finesse
 export class StringGuard {
-	static isNotEmpty(value: string) {
+	static isNotEmpty(value: string): Error | undefined {
 		if (value.length === 0) {
-			throw new Error('Invalid length');
+			return new Error('Invalid length');
 		}
 	}
 }

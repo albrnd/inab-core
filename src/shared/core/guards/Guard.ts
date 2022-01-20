@@ -1,7 +1,10 @@
 export class Guard {
-	static isNotNullOrUndefined(value: any, valueType: string) {
+	static isNotNullOrUndefined(
+		value: any,
+		valueType: string
+	): Error | undefined {
 		if (value === null || value === undefined) {
-			throw new Error(`${valueType} is null or undefined.`);
+			return new Error(`${valueType} is null or undefined.`);
 		}
 	}
 }

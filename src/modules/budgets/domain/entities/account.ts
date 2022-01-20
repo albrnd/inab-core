@@ -1,4 +1,5 @@
 import { StringGuard } from 'shared/core/guards/StringGuard';
+import { Result } from 'shared/core/Result';
 import { Entity, Guid } from 'shared/domain';
 
 export interface AccountProps {
@@ -11,10 +12,14 @@ export default class Account extends Entity<AccountProps> {
 		super(props, id);
 	}
 
-	static init(props: AccountProps): Account {
-		StringGuard.isNotEmpty(props.name);
+	static init(props: AccountProps): Result<Account> {
+		const error = StringGuard.isNotEmpty(props.name);
 
-		return new Account(props);
+		if (error) {
+			return Result.fail(error);
+		}
+
+		return Result.ok(new Account(props));
 	}
 
 	get name(): string {
