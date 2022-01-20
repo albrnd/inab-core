@@ -1,49 +1,59 @@
 import Accounts from 'modules/budgets/domain/valueObjects/accounts';
+import { Result } from 'shared/core/Result';
 import Account from './account';
 import Budget, { BudgetProps } from './budget';
 
 describe('Budget', () => {
-	const createBudget = (props?: Partial<BudgetProps>) => {
-		const defaultProps = { name: 'Test Budget', accounts: new Accounts([]) };
+	type CreateBudget = {
+		budgetResult: Result<Budget>;
+		props: Partial<BudgetProps>;
+	};
 
+	const createBudget = (props?: Partial<BudgetProps>): CreateBudget => {
+		const defaultProps = { name: 'Test Budget', accounts: new Accounts([]) };
 		const _props = { ...defaultProps, ...props };
 
-		const budget = Budget.init(_props);
+		const budgetResult = Budget.init(_props);
 
 		return {
-			budget,
+			budgetResult,
 			props: _props,
 		};
 	};
 
 	describe('init', () => {
 		it('should accept budget props', () => {
-			const { budget } = createBudget();
+			const { budgetResult } = createBudget();
 
-			expect(budget).toBeDefined();
+			expect(budgetResult.isSuccess).toBeTruthy();
+			expect(budgetResult.value).toBeDefined();
 		});
 
 		it('should not accept an empty name', () => {
 			const budgetName = '';
 
-			expect(() => createBudget({ name: budgetName })).toThrowError();
+			const { budgetResult } = createBudget({ name: budgetName });
+
+			expect(() => budgetResult.value).toThrowError();
 		});
 	});
 
 	it('should return the correct name', () => {
 		const budgetName = 'Test Budget';
 
-		const { budget } = createBudget({ name: budgetName });
+		const { budgetResult } = createBudget({ name: budgetName });
 
-		expect(budget.name).toEqual(budgetName);
+		expect(budgetResult.value.name).toEqual(budgetName);
 	});
 
 	it('should return the correct accounts', () => {
-		const account = Account.init({ name: 'My Account', balance: 20000 });
+		const account = Account.init({ name: 'My Account', balance: 20000 }).value;
 
-		const { budget } = createBudget({ accounts: new Accounts([account]) });
+		const {
+			budgetResult: { value },
+		} = createBudget({ accounts: new Accounts([account]) });
 
-		expect(budget.accounts.items).toHaveLength(1);
-		expect(budget.accounts.items[0]).toEqual(account);
+		expect(value.accounts.items).toHaveLength(1);
+		expect(value.accounts.items[0]).toEqual(account);
 	});
 });

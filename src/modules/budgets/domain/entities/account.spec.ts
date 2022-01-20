@@ -1,30 +1,38 @@
+import { Result } from 'shared/core/Result';
 import Account, { AccountProps } from './account';
 
 describe('Account', () => {
-	const createAccount = (props?: Partial<AccountProps>) => {
-		const defaultProps = { name: 'My Account', balance: 0 };
+	type CreateAccount = {
+		accountResult: Result<Account>;
+		props: Partial<AccountProps>;
+	};
 
+	const createAccount = (props?: Partial<AccountProps>): CreateAccount => {
+		const defaultProps = { name: 'My Account', balance: 0 };
 		const _props = { ...defaultProps, ...props };
 
-		const account = Account.init(_props);
+		const accountResult = Account.init(_props);
 
 		return {
-			account,
+			accountResult,
 			props: _props,
 		};
 	};
 
 	describe('init', () => {
 		it('should accept account props', () => {
-			const { account } = createAccount();
+			const { accountResult } = createAccount();
 
-			expect(account).toBeDefined();
+			expect(accountResult.isSuccess).toBeTruthy();
+			expect(accountResult.value).toBeDefined();
 		});
 
 		it('should not accept an empty name', () => {
 			const accountName = '';
 
-			expect(() => createAccount({ name: accountName })).toThrowError();
+			const { accountResult } = createAccount({ name: accountName });
+
+			expect(() => accountResult.value).toThrowError();
 		});
 	});
 
@@ -32,9 +40,9 @@ describe('Account', () => {
 		it('should return the correct name', () => {
 			const accountName = 'My Second Account';
 
-			const { account } = createAccount({ name: accountName });
+			const { accountResult } = createAccount({ name: accountName });
 
-			expect(account.name).toEqual(accountName);
+			expect(accountResult.value.name).toEqual(accountName);
 		});
 	});
 
@@ -42,9 +50,9 @@ describe('Account', () => {
 		it('should return the correct balance', () => {
 			const balance = 150000;
 
-			const { account } = createAccount({ balance });
+			const { accountResult } = createAccount({ balance });
 
-			expect(account.balance).toEqual(balance);
+			expect(accountResult.value.balance).toEqual(balance);
 		});
 	});
 });

@@ -9,9 +9,9 @@ describe('Result', () => {
 		});
 	});
 
-	describe('error', () => {
+	describe('fail', () => {
 		it('should create a new instance of Result if error', () => {
-			const result = Result.error(new Error('Invalid argument'));
+			const result = Result.fail(new Error('Invalid argument'));
 
 			expect(result).toBeDefined();
 		});
@@ -19,7 +19,7 @@ describe('Result', () => {
 
 	describe('isSuccess', () => {
 		it('should return false if Result is not successful', () => {
-			const result = Result.error(new Error('Invalid args'));
+			const result = Result.fail(new Error('Invalid args'));
 
 			expect(result.isSuccess).toBeFalsy();
 		});
@@ -39,7 +39,13 @@ describe('Result', () => {
 		});
 
 		it('should throw an error if result is not successful', () => {
-			const result = Result.error(new Error('Invalid args'));
+			const result = Result.fail(new Error('Invalid args'));
+
+			expect(() => result.value).toThrowError();
+		});
+
+		it('should throw an error if value is undefined', () => {
+			const result = Result.ok(undefined);
 
 			expect(() => result.value).toThrowError();
 		});
@@ -47,7 +53,7 @@ describe('Result', () => {
 
 	describe('error', () => {
 		it('should return the error if result is not successful', () => {
-			const result = Result.error(new Error('Invalid args'));
+			const result = Result.fail(new Error('Invalid args'));
 
 			expect(result.error).toEqual(new Error('Invalid args'));
 		});

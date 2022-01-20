@@ -1,4 +1,5 @@
 import { Guard } from 'shared/core/guards/Guard';
+import { Result } from 'shared/core/Result';
 
 interface TransactionAmountProps {
 	value: number;
@@ -11,13 +12,12 @@ export default class TransactionAmount {
 		this.props = props;
 	}
 
-	get value(): number {
-		return this.value;
+	public static init(props: TransactionAmountProps): Result<TransactionAmount> {
+		// TODO: add guards
+		return Result.ok(new TransactionAmount(props));
 	}
 
-	public static init(props: TransactionAmountProps): TransactionAmount {
-		Guard.isNotNullOrUndefined(props.value, 'TransactionAmount');
-
-		return new TransactionAmount(props);
+	get amount(): number {
+		return this.props.value;
 	}
 }
