@@ -1,5 +1,7 @@
-import Accounts from 'modules/budgets/domain/valueObjects/accounts';
 import { Result } from 'shared/core/Result';
+
+import Accounts from 'modules/budgets/domain/valueObjects/accounts';
+
 import Account from './account';
 import Budget, { BudgetProps } from './budget';
 
@@ -10,7 +12,7 @@ describe('Budget', () => {
 	};
 
 	const createBudget = (props?: Partial<BudgetProps>): CreateBudget => {
-		const defaultProps = { name: 'Test Budget', accounts: new Accounts([]) };
+		const defaultProps = { name: 'Test Budget', accounts: Accounts.init([]) };
 		const _props = { ...defaultProps, ...props };
 
 		const budgetResult = Budget.init(_props);
@@ -51,7 +53,7 @@ describe('Budget', () => {
 
 		const {
 			budgetResult: { value },
-		} = createBudget({ accounts: new Accounts([account]) });
+		} = createBudget({ accounts: Accounts.init([account]) });
 
 		expect(value.accounts.items).toHaveLength(1);
 		expect(value.accounts.items[0]).toEqual(account);

@@ -24,4 +24,8 @@ export class Result<T> {
 
 		return this._value;
 	}
+
+	get isFailure(): boolean {
+		return !this.isSuccess;
+	}
 }

@@ -3,7 +3,7 @@ import Accounts from './accounts';
 
 describe('Accounts', () => {
 	it('should accept an array of accounts', () => {
-		const accounts = new Accounts([]);
+		const accounts = Accounts.init([]);
 
 		expect(accounts).toBeDefined();
 	});
@@ -11,7 +11,7 @@ describe('Accounts', () => {
 	it('should set the initial value of accounts', () => {
 		const account = Account.init({ name: 'Account', balance: 1000 }).value;
 
-		const accounts = new Accounts([account]);
+		const accounts = Accounts.init([account]);
 
 		expect(accounts.items).toHaveLength(1);
 		expect(accounts.items[0]).toEqual(account);
