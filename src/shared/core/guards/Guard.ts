@@ -7,4 +7,9 @@ export class Guard {
 			return new Error(`${valueType} is null or undefined.`);
 		}
 	}
+	static isFalsy(value: boolean, valueType: string) {
+		if (!value) {
+			throw new Error(`${valueType} is falsy.`);
+		}
+	}
 }
