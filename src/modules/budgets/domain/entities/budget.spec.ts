@@ -1,9 +1,11 @@
-import { Result } from 'shared/core/Result';
+import Budget, { BudgetProps } from './budget';
+import Account from './account';
 
 import Accounts from 'modules/budgets/domain/valueObjects/accounts';
 
-import Account from './account';
-import Budget, { BudgetProps } from './budget';
+import { Result } from 'shared/core/Result';
+
+import faker from '@faker-js/faker';
 
 describe('Budget', () => {
 	type CreateBudget = {
@@ -12,7 +14,10 @@ describe('Budget', () => {
 	};
 
 	const createBudget = (props?: Partial<BudgetProps>): CreateBudget => {
-		const defaultProps = { name: 'Test Budget', accounts: Accounts.init([]) };
+		const defaultProps = {
+			name: faker.random.words(),
+			accounts: Accounts.init([]),
+		};
 		const _props = { ...defaultProps, ...props };
 
 		const budgetResult = Budget.init(_props);
@@ -49,7 +54,10 @@ describe('Budget', () => {
 	});
 
 	it('should return the correct accounts', () => {
-		const account = Account.init({ name: 'My Account', balance: 20000 }).value;
+		const account = Account.init({
+			name: faker.finance.accountName(),
+			balance: faker.datatype.number({ precision: 0.01 }),
+		}).value;
 
 		const {
 			budgetResult: { value },

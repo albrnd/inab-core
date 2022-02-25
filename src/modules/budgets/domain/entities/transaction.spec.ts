@@ -1,7 +1,10 @@
+import Transaction, { TransactionProps } from './transaction';
+
 import TransactionAmount from 'modules/budgets/domain/valueObjects/transactionAmount';
 import { Result } from 'shared/core/Result';
 import { Guid } from 'shared/domain';
-import Transaction, { TransactionProps } from './transaction';
+
+import faker from '@faker-js/faker';
 
 describe('Transaction', () => {
 	type CreateTransaction = {
@@ -16,7 +19,9 @@ describe('Transaction', () => {
 			budgetId: Guid.init(),
 			accountId: Guid.init(),
 			accountName: 'Savings Account',
-			amount: TransactionAmount.init({ value: -123 }).value,
+			amount: TransactionAmount.init({
+				value: faker.datatype.number({ min: -10000, max: 0 }),
+			}).value,
 		};
 
 		const props = { ...defaultProps, ..._props };

@@ -1,7 +1,11 @@
 import MainCategory, { MainCategoryProps } from './mainCategory';
+
 import Categories from 'modules/budgets/domain/valueObjects/categories';
-import { Result } from 'shared/core/Result';
 import Category from 'modules/budgets/domain/entities/category';
+
+import { Result } from 'shared/core/Result';
+
+import faker from '@faker-js/faker';
 
 describe('Main Category', () => {
 	type CreateMainCategory = {
@@ -13,7 +17,7 @@ describe('Main Category', () => {
 		props?: Partial<MainCategoryProps>
 	): CreateMainCategory => {
 		const defaultProps = {
-			name: 'Living Expenses',
+			name: faker.random.words(),
 			categories: new Categories([]),
 		};
 		const _props = { ...defaultProps, ...props };
@@ -47,7 +51,7 @@ describe('Main Category', () => {
 
 	describe('name', () => {
 		it('should return the correct name', () => {
-			const mainCategoryName = 'Fixed Monthly Expenses';
+			const mainCategoryName = faker.random.words();
 
 			const { mainCategoryResult } = createMainCategory({
 				name: mainCategoryName,
@@ -60,8 +64,8 @@ describe('Main Category', () => {
 	describe('categories', () => {
 		it('should return the correct accounts', () => {
 			const category = Category.init({
-				name: 'Rent',
-				budgetAmount: 8000,
+				name: faker.random.words(),
+				budgetAmount: faker.datatype.number(),
 			}).value;
 
 			const {

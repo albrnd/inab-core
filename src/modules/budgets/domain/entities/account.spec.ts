@@ -1,6 +1,8 @@
 import { Result } from 'shared/core/Result';
 import Account, { AccountProps } from './account';
 
+import faker from '@faker-js/faker';
+
 describe('Account', () => {
 	type CreateAccount = {
 		accountResult: Result<Account>;
@@ -8,7 +10,11 @@ describe('Account', () => {
 	};
 
 	const createAccount = (props?: Partial<AccountProps>): CreateAccount => {
-		const defaultProps = { name: 'My Account', balance: 0 };
+		const defaultProps = {
+			name: faker.finance.accountName(),
+			balance: faker.datatype.number(),
+		};
+
 		const _props = { ...defaultProps, ...props };
 
 		const accountResult = Account.init(_props);
@@ -48,7 +54,7 @@ describe('Account', () => {
 
 	describe('balance', () => {
 		it('should return the correct balance', () => {
-			const balance = 150000;
+			const balance = faker.datatype.number();
 
 			const { accountResult } = createAccount({ balance });
 
