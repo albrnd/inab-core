@@ -1,7 +1,9 @@
+import { CreateAccount, ICreateAccountDTO } from './CreateAccount';
+
 import { BudgetRepository } from 'modules/budgets/repos/implementations/budgetRepository';
 import { Guid } from 'shared/domain';
 
-import { CreateAccount, ICreateAccountDTO } from './CreateAccount';
+import faker from '@faker-js/faker';
 
 jest.mock('modules/budgets/repos/implementations/budgetRepository');
 
@@ -11,9 +13,9 @@ describe('Create Account', () => {
 		request?: Partial<ICreateAccountDTO>
 	) => {
 		const defaultRequest = {
-			name: 'Savings Account',
-			balance: 1,
-			budgetId: new Guid('704c13bc-5080-4978-af69-7ebc7301fa69'),
+			name: faker.finance.accountName(),
+			balance: faker.datatype.number({ precision: 0.01 }),
+			budgetId: new Guid(faker.datatype.uuid()),
 		};
 
 		const _request = { ...defaultRequest, ...request };

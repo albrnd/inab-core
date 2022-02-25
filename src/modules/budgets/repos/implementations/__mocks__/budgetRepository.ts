@@ -10,12 +10,12 @@ export class BudgetRepository implements IBudgetRepository {
 	}
 
 	async getBudgetById(budgetId: Guid): Promise<Budget> {
-		const mockBudget = Budget.init(
+		const mockBudgetResult = Budget.init(
 			{ name: 'Sample Budget', accounts: Accounts.init([]) },
 			budgetId
 		);
 
-		return mockBudget;
+		return mockBudgetResult.value;
 	}
 
 	async save(): Promise<void> {}

@@ -1,5 +1,8 @@
 import Category, { CategoryProps } from './category';
+
 import { Result } from 'shared/core/Result';
+
+import faker from '@faker-js/faker';
 
 describe('Category', () => {
 	type CreateCategory = {
@@ -8,7 +11,10 @@ describe('Category', () => {
 	};
 
 	const createCategory = (props?: Partial<CategoryProps>): CreateCategory => {
-		const defaultProps = { name: 'Test Category', budgetAmount: 5000 };
+		const defaultProps = {
+			name: faker.random.words(),
+			budgetAmount: faker.datatype.number({ precision: 0.01 }),
+		};
 		const _props = { ...defaultProps, ...props };
 
 		const categoryResult = Category.init(_props);
