@@ -4,10 +4,14 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test:build": "jest -c jest.config.js",
-    "test": "jest -c jest.config.js --watch",
+    "build": "yarn compile",
+    "clean": "./node_modules/rimraf/bin.js dist",
     "code:check": "prettier --check ./src",
-    "code:format": "prettier --write ./src"
+    "code:format": "prettier --write ./src",
+    "compile": "yarn clean && tsc -p tsconfig.json",
+    "start": "yarn build && node dist/infra/graphql/server",
+    "test:build": "jest -c jest.config.js",
+    "test": "jest -c jest.config.js --watch"
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",

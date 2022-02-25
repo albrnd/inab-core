@@ -1,0 +1,39 @@
+version: "3.8"
+services:
+  server:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: inab-core
+    image: inab-core
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "3001:3001"
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+
+  postgres:
+    container_name: inab-postgres
+    image: postgres:10.4
+    volumes:
+      - "${DB_VOLUME_PATH}:/var/lib/postgresql/data"
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
