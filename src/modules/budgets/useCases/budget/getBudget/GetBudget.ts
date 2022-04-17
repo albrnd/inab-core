@@ -1,4 +1,4 @@
-import { getBudgetFactory } from '.';
+import GetBudgetFactory from './GetBudgetFactory';
 
 import Budget from 'modules/budgets/domain/entities/budget';
 import { IBudgetRepository } from 'modules/budgets/repos/interfaces/budgetRepository';
@@ -15,7 +15,7 @@ interface IGetBudgetDTO {
 type GetBudgetResponse = Result<Budget | undefined>;
 
 @Service({
-	factory: getBudgetFactory,
+	factory: GetBudgetFactory,
 })
 export class GetBudget implements UseCase<IGetBudgetDTO, GetBudgetResponse> {
 	private budgetRepository: IBudgetRepository;

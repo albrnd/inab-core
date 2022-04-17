@@ -1,9 +1,13 @@
-import { Result } from 'shared/core/Result';
-import { UseCase } from 'shared/domain';
+import CreateBudgetFactory from './CreateBudgetFactory';
 
 import Accounts from 'modules/budgets/domain/valueObjects/accounts';
 import Budget from 'modules/budgets/domain/entities/budget';
 import { IBudgetRepository } from 'modules/budgets/repos/interfaces/budgetRepository';
+
+import { Result } from 'shared/core/Result';
+import { UseCase } from 'shared/domain';
+
+import { Service } from 'typedi';
 
 interface ICreateBudgetDTO {
 	name: string;
@@ -11,6 +15,9 @@ interface ICreateBudgetDTO {
 
 type CreateBudgetResponse = Result<Budget | undefined>;
 
+@Service({
+	factory: CreateBudgetFactory,
+})
 export class CreateBudget
 	implements UseCase<ICreateBudgetDTO, CreateBudgetResponse>
 {
