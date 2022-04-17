@@ -1,4 +1,4 @@
-import { BudgetRepository } from './implementations/budgetRepository';
+import { BudgetRepository } from './implementations/__mocks__/budgetRepository';
 
 const budgetRepository = new BudgetRepository();
 
