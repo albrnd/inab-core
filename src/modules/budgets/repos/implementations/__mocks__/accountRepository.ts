@@ -8,11 +8,11 @@ import faker from '@faker-js/faker';
 
 export class AccountRepository implements IAccountRepository {
 	async getAccountById(accountId: Guid): Promise<Account> {
-		return this.createAccount(accountId);
+		return this.createAccount(undefined, accountId);
 	}
 
 	async getAccountsByBudgetId(budgetId: Guid): Promise<Accounts> {
-		const account = this.createAccount();
+		const account = this.createAccount(budgetId);
 		const accounts = Accounts.init([account]);
 
 		return accounts;
@@ -20,9 +20,10 @@ export class AccountRepository implements IAccountRepository {
 
 	async save(account: Account): Promise<void> {}
 
-	private createAccount(accountId?: Guid): Account {
+	private createAccount(budgetId?: Guid, accountId?: Guid): Account {
 		const accountResult = Account.init(
 			{
+				budgetId: budgetId || new Guid(faker.datatype.uuid()),
 				name: faker.finance.accountName(),
 				balance: faker.datatype.number(),
 			},

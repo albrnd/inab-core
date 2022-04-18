@@ -8,7 +8,6 @@ import { IBudgetRepository } from 'modules/budgets/repos/interfaces/budgetReposi
 import { Guard } from 'shared/core/guards/Guard';
 import { accountRepository, budgetRepository } from 'modules/budgets/repos';
 import { Service } from 'typedi';
-import useCaseFactory from 'shared/domain/UseCaseFactory';
 import CreateAccountFactory from './CreateAccountFactory';
 
 export interface ICreateAccountDTO {
@@ -54,8 +53,11 @@ export class CreateAccount
 			return accountResult;
 		}
 
-		accountRepository.save(accountResult.value);
-
-		return accountResult;
+		try {
+			accountRepository.save(accountResult.value);
+			return accountResult;
+		} catch (err) {
+			return Result.fail(err as Error);
+		}
 	}
 }
