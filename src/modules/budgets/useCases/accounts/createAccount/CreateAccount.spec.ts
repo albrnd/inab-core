@@ -1,10 +1,13 @@
 import { CreateAccount, ICreateAccountDTO } from './CreateAccount';
 
+import { AccountRepository } from 'modules/budgets/repos/implementations/accountRepository';
 import { BudgetRepository } from 'modules/budgets/repos/implementations/budgetRepository';
 import { Guid } from 'shared/domain';
 
 import faker from '@faker-js/faker';
+import { budgetRepository } from 'modules/budgets/repos';
 
+jest.mock('modules/budgets/repos/implementations/accountRepository');
 jest.mock('modules/budgets/repos/implementations/budgetRepository');
 
 describe('Create Account', () => {
@@ -20,9 +23,13 @@ describe('Create Account', () => {
 
 		const _request = { ...defaultRequest, ...request };
 
+		const _accountRepository = new AccountRepository();
 		const _budgetRepository = budgetRepository || new BudgetRepository();
 
-		const createAccount = new CreateAccount(_budgetRepository);
+		const createAccount = new CreateAccount(
+			_accountRepository,
+			_budgetRepository
+		);
 
 		return {
 			budgetRepository: _budgetRepository,
@@ -55,6 +62,20 @@ describe('Create Account', () => {
 
 			expect(accountResult.isSuccess).toBeFalsy();
 			expect(accountResult.error).toBeDefined();
+		});
+
+		it('should not call save when initializing account has failed', async () => {
+			const { createAccount, request } = createAccountUseCase(undefined, {
+				name: '',
+			});
+
+			const saveAccountSpy = jest
+				.spyOn(budgetRepository, 'save')
+				.mockImplementation();
+
+			await createAccount.execute(request);
+
+			expect(saveAccountSpy).not.toHaveBeenCalled();
 		});
 	});
 });

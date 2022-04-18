@@ -2,7 +2,7 @@ import BudgetType from './types/BudgetType';
 
 import { GetBudget } from 'modules/budgets/useCases/budget/getBudget/GetBudget';
 import { CreateBudget } from 'modules/budgets/useCases/budget/createBudget/CreateBudget';
-import { BudgetMapper } from 'modules/budgets/mappers/BudgetMapper';
+import { BudgetMapper } from 'modules/budgets/mappers/budgetMapper';
 
 import { Guid } from 'shared/domain';
 

@@ -2,6 +2,7 @@ import { Result } from 'shared/core/Result';
 import Account, { AccountProps } from './account';
 
 import faker from '@faker-js/faker';
+import { Guid } from 'shared/domain';
 
 describe('Account', () => {
 	type CreateAccount = {
@@ -11,6 +12,7 @@ describe('Account', () => {
 
 	const createAccount = (props?: Partial<AccountProps>): CreateAccount => {
 		const defaultProps = {
+			budgetId: new Guid(faker.datatype.uuid()),
 			name: faker.finance.accountName(),
 			balance: faker.datatype.number(),
 		};
@@ -39,6 +41,15 @@ describe('Account', () => {
 			const { accountResult } = createAccount({ name: accountName });
 
 			expect(() => accountResult.value).toThrowError();
+		});
+	});
+
+	describe('budgetId', () => {
+		it('should return the correct name', () => {
+			const budgetId = new Guid(faker.datatype.uuid());
+			const { accountResult } = createAccount({ budgetId });
+
+			expect(accountResult.value.budgetId).toEqual(budgetId);
 		});
 	});
 
