@@ -5,6 +5,7 @@ export class BudgetMapper {
 		return {
 			id: budget.id.value,
 			name: budget.name,
+			ownerId: budget.ownerId.value,
 		};
 	}
 }

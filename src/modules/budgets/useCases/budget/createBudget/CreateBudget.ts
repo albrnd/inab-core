@@ -5,12 +5,13 @@ import Budget from 'modules/budgets/domain/entities/budget';
 import { IBudgetRepository } from 'modules/budgets/repos/interfaces/budgetRepository';
 
 import { Result } from 'shared/core/Result';
-import { UseCase } from 'shared/domain';
+import { Guid, UseCase } from 'shared/domain';
 
 import { Service } from 'typedi';
 
 interface ICreateBudgetDTO {
 	name: string;
+	ownerId: string;
 }
 
 type CreateBudgetResponse = Result<Budget | undefined>;
@@ -31,6 +32,7 @@ export class CreateBudget
 		const newBudgetResult = Budget.init({
 			name: request.name,
 			accounts: Accounts.init([]),
+			ownerId: new Guid(request.ownerId),
 		});
 
 		if (newBudgetResult.isFailure) {

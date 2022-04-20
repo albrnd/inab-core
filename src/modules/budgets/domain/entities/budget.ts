@@ -6,6 +6,7 @@ import { Entity, Guid } from 'shared/domain';
 export interface BudgetProps {
 	name: string;
 	accounts: Accounts;
+	ownerId: Guid;
 }
 
 export default class Budget extends Entity<BudgetProps> {
@@ -29,5 +30,9 @@ export default class Budget extends Entity<BudgetProps> {
 
 	get accounts(): Accounts {
 		return this.props.accounts;
+	}
+
+	get ownerId(): Guid {
+		return this.props.ownerId;
 	}
 }

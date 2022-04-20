@@ -11,4 +11,7 @@ export default class BudgetType {
 
 	@Field(() => [AccountType])
 	accounts: [AccountType];
+
+	@Field(() => ID)
+	ownerId: string;
 }

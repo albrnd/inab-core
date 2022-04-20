@@ -1,8 +1,10 @@
 import BudgetType from './types/BudgetType';
 
-import { GetBudget } from 'modules/budgets/useCases/budget/getBudget/GetBudget';
-import { CreateBudget } from 'modules/budgets/useCases/budget/createBudget/CreateBudget';
+import { AccountMapper } from 'modules/budgets/mappers/accountMapper';
 import { BudgetMapper } from 'modules/budgets/mappers/budgetMapper';
+import { CreateBudget } from 'modules/budgets/useCases/budget/createBudget/CreateBudget';
+import { GetAccountsByBudgetId } from 'modules/budgets/useCases/accounts/getAccountsByBudgetId/GetAccountsByBudgetId';
+import { GetBudget } from 'modules/budgets/useCases/budget/getBudget/GetBudget';
 
 import { Guid } from 'shared/domain';
 
@@ -15,9 +17,6 @@ import {
 	Root,
 } from 'type-graphql';
 import { Service } from 'typedi';
-import Budget from 'modules/budgets/domain/entities/budget';
-import { GetAccountsByBudgetId } from 'modules/budgets/useCases/accounts/getAccountsByBudgetId/GetAccountsByBudgetId';
-import { AccountMapper } from 'modules/budgets/mappers/accountMapper';
 
 @Service()
 @Resolver(BudgetType)
@@ -51,8 +50,11 @@ export default class BudgetResolver {
 	}
 
 	@Mutation(() => BudgetType)
-	async createBudget(@Arg('name') name: string) {
-		const budget = await this.createBudgetUseCase.execute({ name });
+	async createBudget(
+		@Arg('name') name: string,
+		@Arg('ownerId') ownerId: string
+	) {
+		const budget = await this.createBudgetUseCase.execute({ name, ownerId });
 
 		if (budget.isFailure) {
 			throw budget.error;

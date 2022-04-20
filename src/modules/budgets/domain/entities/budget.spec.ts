@@ -3,6 +3,7 @@ import Account from './account';
 
 import Accounts from 'modules/budgets/domain/valueObjects/accounts';
 
+import { Guid } from 'shared/domain';
 import { Result } from 'shared/core/Result';
 
 import faker from '@faker-js/faker';
@@ -17,7 +18,9 @@ describe('Budget', () => {
 		const defaultProps = {
 			name: faker.random.words(),
 			accounts: Accounts.init([]),
+			ownerId: new Guid(faker.datatype.uuid()),
 		};
+
 		const _props = { ...defaultProps, ...props };
 
 		const budgetResult = Budget.init(_props);
@@ -55,6 +58,7 @@ describe('Budget', () => {
 
 	it('should return the correct accounts', () => {
 		const account = Account.init({
+			budgetId: new Guid(faker.datatype.uuid()),
 			name: faker.finance.accountName(),
 			balance: faker.datatype.number({ precision: 0.01 }),
 		}).value;
