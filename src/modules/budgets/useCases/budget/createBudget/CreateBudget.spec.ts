@@ -4,8 +4,6 @@ import { budgetRepository } from 'modules/budgets/repos';
 
 import faker from '@faker-js/faker';
 
-jest.mock('modules/budgets/repos/implementations/budgetRepository');
-
 describe('Create Budget', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -15,6 +13,7 @@ describe('Create Budget', () => {
 		const createBudget = new CreateBudget(budgetRepository);
 		const newBudgetResult = await createBudget.execute({
 			name: faker.random.words(),
+			ownerId: faker.datatype.uuid(),
 		});
 
 		expect(newBudgetResult.isSuccess).toBeTruthy();
@@ -23,7 +22,7 @@ describe('Create Budget', () => {
 
 	it('should return a failed result if request is invalid', async () => {
 		const invalidBudgetName = '';
-		const request = { name: invalidBudgetName };
+		const request = { name: invalidBudgetName, ownerId: faker.datatype.uuid() };
 		const createBudget = new CreateBudget(budgetRepository);
 
 		const newBudgetResult = await createBudget.execute(request);

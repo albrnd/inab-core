@@ -8,4 +8,24 @@ export class AccountMapper {
 			name: account.name,
 		};
 	}
+
+	public static toDomain(account: any): Account {
+		const accountResult = Account.init({
+			name: account.name,
+			balance: 0,
+			budgetId: account.budgetId.value,
+		});
+
+		return accountResult.isSuccess ? accountResult.value : null;
+	}
+
+	public static toModel(account: Account): any {
+		return {
+			_id: account.id.value,
+
+			budgetId: account.budgetId.value,
+
+			name: account.name,
+		};
+	}
 }

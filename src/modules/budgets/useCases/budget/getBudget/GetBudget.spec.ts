@@ -5,8 +5,6 @@ import { Guid } from 'shared/domain';
 
 import faker from '@faker-js/faker';
 
-jest.mock('modules/budgets/repos/implementations/budgetRepository');
-
 describe('GetBudget', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();

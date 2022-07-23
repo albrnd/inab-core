@@ -1,5 +1,5 @@
-import { AccountRepository } from './implementations/__mocks__/accountRepository';
-import { BudgetRepository } from './implementations/__mocks__/budgetRepository';
+import { AccountRepository } from './implementations/accountRepository';
+import { BudgetRepository } from './implementations/budgetRepository';
 
 const accountRepository = new AccountRepository();
 const budgetRepository = new BudgetRepository();

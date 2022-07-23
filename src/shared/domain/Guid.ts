@@ -1,13 +1,17 @@
-import { v4 as uuidv4, validate } from 'uuid';
+import { ObjectId } from 'bson';
 
 export class Guid {
-	value: string;
+	_id: ObjectId;
 
 	constructor(value?: string) {
-		this.value = value && validate(value) ? value : uuidv4();
+		this._id = ObjectId.isValid(value) ? new ObjectId(value) : new ObjectId();
+	}
+
+	get value(): string {
+		return this._id.toString();
 	}
 
 	static init() {
-		return new Guid();
+		return new ObjectId().toString();
 	}
 }

@@ -1,5 +1,4 @@
 import faker from '@faker-js/faker';
-import { accountRepository } from 'modules/budgets/repos';
 import { AccountRepository } from 'modules/budgets/repos/implementations/accountRepository';
 import {
 	GetAccountsByBudgetId,
